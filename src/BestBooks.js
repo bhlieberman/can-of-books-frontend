@@ -14,7 +14,7 @@ class BestBooks extends React.Component {
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
   getBooks = async() =>{
     try{
-      let response = await axios.get(`${process.env.HEROKU}/books`);
+      let response = await axios.get(`https://ben-joe-cd-fellows-books.herokuapp.com/books`);
       this.setState({books: response.data});
     }catch (error){
       console.log('error: ' + error);
