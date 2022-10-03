@@ -1,11 +1,35 @@
-# Start your own "Can of Books" App
+# Can of Books
 
-This repository has starter code to begin work on creating your own online bookshelf.
+**Author**: Ben Lieberman
+**Version**: 1.0.0
 
-## What can books do?
+## Overview
+This is a web app written in React that allows the user to track the books they've read after the fashion of GoodReads.
 
-Books are life-changing. They have the power to enlighten, educate, entertain, heal, and help us grow. Build out this code base to create an web app to track what books have impacted you, and what's recommended to read next.
+## Getting Started
+This code will be hosted on Netlify but to run the app locally you need to clone this repo down to your machine and do the following:
+1. In the project root, run `npm install`.
+2. When all dependencies are installed, run `npm start`. 
 
-## Use this template
+## Architecture
+React and React Router
+Netlify hosted
 
-Clone this repo to your own account with the green "Use this template" button. Then, add any collaborators. Now you are ready to start adding features! Deploy your site to let the world know which books have had the greatest impact on you, and what's recommended. Enjoy!
+## Change Log
+README updated - 10/3/22 13:24 BHL
+
+## Estimates
+
+Name of feature: ________________________________
+
+Estimate of time needed to complete: _____
+
+Start time: _____
+
+Finish time: _____
+
+Actual time needed to complete: _____
+
+## Credit and Collaborations
+
+
