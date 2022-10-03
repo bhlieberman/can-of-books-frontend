@@ -7,7 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  Link,
 } from "react-router-dom";
 
 class App extends React.Component {
@@ -15,14 +16,18 @@ class App extends React.Component {
     return (
       <>
         <Router>
+          <nav>
+            <Link to="/" className="m-2">Home</Link>
+            <Link to="/about" className="m-2">About</Link>
+          </nav>
           <Header />
           <Routes>
-            <Route 
+            <Route
               exact path="/"
               element={<BestBooks />}
             >
             </Route>
-            <Route 
+            <Route
               exact path="/about"
               element={<About />}
             >
