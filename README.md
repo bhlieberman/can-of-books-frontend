@@ -15,20 +15,17 @@ This code will be hosted on Netlify but to run the app locally you need to clone
 React and React Router
 Netlify hosted
 
-## Change Log
-README updated - 10/3/22 13:24 BHL
-
 ## Estimates
 
-Name of feature: ________________________________
+Name of feature: Front end connect to backend
 
-Estimate of time needed to complete: _____
+Estimate of time needed to complete: 1.5 hr
 
-Start time: _____
+Start time: 2:05
 
-Finish time: _____
+Finish time: 4:15
 
-Actual time needed to complete: _____
+Actual time needed to complete: 2 hr
 
 ## Credit and Collaborations
 Partner: Joe Rutkin
