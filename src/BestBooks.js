@@ -16,19 +16,16 @@ class BestBooks extends React.Component {
   }
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
-<<<<<<< Updated upstream
   getBooks = async() =>{
     try{
       let response = await axios.get(`${process.env.REACT_APP_HEROKU}/books`);
       this.setState({books: response.data});
     }catch (error){
-=======
   getBooks = async () => {
     try {
       let response = await axios.get(`${process.env.REACT_APP_SERVER}/books`);
       this.setState({ books: response.data });
     } catch (error) {
->>>>>>> Stashed changes
       console.log('error: ' + error);
     }
   };
