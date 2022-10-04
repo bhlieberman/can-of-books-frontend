@@ -1,28 +1,54 @@
 import React from 'react';
 import axios from 'axios';
 import Carousel from 'react-bootstrap/Carousel';
-import { Container } from 'react-bootstrap';
+import { Container, Form, FormGroup } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+
+import BookFormModal from './BookFormModal';
 
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: []
+      books: [],
+      show: false
     }
   }
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
+<<<<<<< Updated upstream
   getBooks = async() =>{
     try{
       let response = await axios.get(`${process.env.REACT_APP_SERVER}/books`);
       this.setState({books: response.data});
     }catch (error){
+=======
+  getBooks = async () => {
+    try {
+      let response = await axios.get(`${process.env.REACT_APP_SERVER}/books`);
+      this.setState({ books: response.data });
+    } catch (error) {
+>>>>>>> Stashed changes
       console.log('error: ' + error);
     }
   };
 
-  componentDidMount(){
+  createBooks = async (data) => {
+    try {
+      let response = await axios.post(`${process.env.REACT_APP_SERVER}/books`, data)
+      console.log(response);
+      this.setState({ books: this.state.books.concat(response.data) })
+    } catch (error) {
+      console.log('error posting new book')
+    }
+  }
+
+  componentDidMount() {
     this.getBooks();
+  }
+
+  showModal = () => {
+    this.setState(prevState=> ({show: !prevState.show}));
   }
 
   render() {
@@ -55,6 +81,9 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No Books Found :(</h3>
         )}
+        {this.state.show && <BookFormModal show={this.state.show} handleClose={this.showModal} update={this.createBooks}/>}
+        {!this.state.show && <Button className="btn-secondary m-2" 
+        onClick={this.showModal}>Add a Book</Button>}
       </Container>
     );
   }
