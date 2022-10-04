@@ -34,9 +34,9 @@ class BestBooks extends React.Component {
     try {
       let response = await axios.post(`${process.env.REACT_APP_SERVER}/books`, data)
       console.log(response);
-      this.setState({ books: this.state.books.concat(response.data) })
+      this.setState({ books: this.state.books.concat(response.data) });
     } catch (error) {
-      console.log('error posting new book')
+      console.log('error posting new book');
     }
   }
 
