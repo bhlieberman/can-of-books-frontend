@@ -38,7 +38,7 @@ class BestBooks extends React.Component {
     } catch (error) {
       console.log('error posting new book');
     }
-  }
+  };
 
   componentDidMount() {
     this.getBooks();
