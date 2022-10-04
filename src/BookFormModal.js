@@ -2,11 +2,6 @@ import React from 'react';
 import { Modal, Form, Button, FormGroup } from 'react-bootstrap';
 
 class BookFormModal extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
     handleSubmit = (e) => {
         e.preventDefault();
         const data = {
