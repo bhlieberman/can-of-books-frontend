@@ -18,7 +18,7 @@ class BestBooks extends React.Component {
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
   getBooks = async() =>{
     try{
-      let response = await axios.get(`${process.env.REACT_APP_HEROKU}/books`);
+      let response = await axios.get(`${process.env.REACT_APP_SERVER}/books`);
       this.setState({books: response.data});
     } catch (error) {
       console.log('error: ' + error);
@@ -33,6 +33,18 @@ class BestBooks extends React.Component {
     } catch (error) {
       console.log('error posting new book');
     };
+  }
+
+  deleteBook = async (id) => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_SERVER}/books/${id}`)
+      let filteredBooks = this.state.books.filter(book => {
+        return book._id !== id;
+      })
+      this.setState({books: filteredBooks});
+    } catch (error){
+      console.log("error: " + error);
+    }
   }
 
   componentDidMount() {
@@ -65,6 +77,7 @@ class BestBooks extends React.Component {
                   <Carousel.Caption>
                     <h2>{book.title}</h2>
                     <p>{book.description}</p>
+                    <Button onClick={() => this.deleteBook(book._id)}>DELETE</Button>
                   </Carousel.Caption>
                 </Carousel.Item>
               );
