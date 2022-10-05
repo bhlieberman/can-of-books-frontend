@@ -4,59 +4,86 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
-import BookFormModal from './BookFormModal';
+import BookFormModal from "./BookFormModal";
+import BookUpdateModal from "./BookUpdateModal";
 
 class BestBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       books: [],
-      show: false
-    }
+      showCreate: false,
+      showUpdate: false,
+      selectedBook: {},
+    };
   }
 
   /* TODO: Make a GET request to your API to fetch all the books from the database  */
-  getBooks = async() =>{
-    try{
+  getBooks = async () => {
+    try {
       let response = await axios.get(`${process.env.REACT_APP_SERVER}/books`);
-      this.setState({books: response.data});
+      this.setState({ books: response.data });
     } catch (error) {
-      console.log('error: ' + error);
+      console.log("error: " + error);
     }
   };
 
   createBooks = async (data) => {
     try {
-      let response = await axios.post(`${process.env.REACT_APP_SERVER}/books`, data)
+      let response = await axios.post(
+        `${process.env.REACT_APP_SERVER}/books`,
+        data
+      );
       console.log(response);
       this.setState({ books: this.state.books.concat(response.data) });
     } catch (error) {
-      console.log('error posting new book');
-    };
-  }
+      console.log("error posting new book");
+    }
+  };
 
   deleteBook = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_SERVER}/books/${id}`)
-      let filteredBooks = this.state.books.filter(book => {
+      await axios.delete(`${process.env.REACT_APP_SERVER}/books/${id}`);
+      let filteredBooks = this.state.books.filter((book) => {
         return book._id !== id;
-      })
-      this.setState({books: filteredBooks});
-    } catch (error){
+      });
+      this.setState({ books: filteredBooks });
+    } catch (error) {
       console.log("error: " + error);
     }
-  }
+  };
+
+  updateBook = async (bookToBeUpdated) => {
+    try {
+      let updatedBook = await axios.put(
+        `${process.env.REACT_APP_SERVER}/books/${bookToBeUpdated._id}`,
+        bookToBeUpdated
+      );
+      let filteredBooks = this.state.books.map((book) => {
+        if (book._id === updatedBook.data._id) {
+          return updatedBook.data;
+        }
+        return book;
+      });
+      this.setState({ books: filteredBooks });
+    } catch (error) {
+      console.log("error: " + error);
+    }
+  };
 
   componentDidMount() {
     this.getBooks();
   }
 
-  showModal = () => {
-    this.setState(prevState=> ({show: !prevState.show}));
-  }
+  showCreateModal = () => {
+    this.setState((prevState) => ({ showCreate: !prevState.showCreate }));
+  };
+
+  showUpdateModal = () => {
+    this.setState((prevState) => ({ showUpdate: !prevState.showUpdate }));
+  };
 
   render() {
-
     /* TODO: render all the books in a Carousel */
 
     return (
@@ -77,6 +104,7 @@ class BestBooks extends React.Component {
                   <Carousel.Caption>
                     <h2>{book.title}</h2>
                     <p>{book.description}</p>
+                    <Button onClick={() => {this.showUpdateModal(); this.setState({selectedBook: book})}}>UPDATE</Button>
                     <Button onClick={() => this.deleteBook(book._id)}>DELETE</Button>
                   </Carousel.Caption>
                 </Carousel.Item>
@@ -86,9 +114,26 @@ class BestBooks extends React.Component {
         ) : (
           <h3>No Books Found :(</h3>
         )}
-        {this.state.show && <BookFormModal show={this.state.show} handleClose={this.showModal} update={this.createBooks}/>}
-        {!this.state.show && <Button className="btn-secondary m-2" 
-        onClick={this.showModal}>Add a Book</Button>}
+        {this.state.showUpdate && (
+          <BookUpdateModal
+            show={this.state.showUpdate}
+            handleClose={this.showUpdateModal}
+            update={this.updateBook}
+            book={this.state.selectedBook}
+          />
+        )}
+        {this.state.showCreate && (
+          <BookFormModal
+            show={this.state.showCreate}
+            handleClose={this.showCreateModal}
+            update={this.createBooks}
+          />
+        )}
+        {!this.state.showCreate && (
+          <Button className="btn-secondary m-2" onClick={this.showCreateModal}>
+            Add a Book
+          </Button>
+        )}
       </Container>
     );
   }
